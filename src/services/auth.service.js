@@ -36,17 +36,17 @@ class AuthService {
 
     async refreshToken({refreshToken}) {
         if(!refreshToken) throw new Error('Refresh token is required');
-        console.log('RAW REFRESH TOKEN →', refreshToken);
+        // console.log('RAW REFRESH TOKEN →', refreshToken);
         const payload = jwt.verify(refreshToken, env.JWT_REFRESH_SECRET);
-        console.log('JWT PAYLOAD →', payload);
+        // console.log('JWT PAYLOAD →', payload);
         if(!payload) throw new Error('Invalid or expired refresh token');
         const user = await userRepo.findByEmail(payload.email);
-        console.log('USER FOUND →', !!user);
-        console.log('DB HASH →', user.refreshToken);
+        // console.log('USER FOUND →', !!user);
+        // console.log('DB HASH →', user.refreshToken);
         if(!user) throw new Error('User not found');
         const isMatch = await bcrypt.compare(refreshToken, user.refreshToken);
         if(!isMatch) throw new Error('Invalid or expired refresh token');
-        console.log('BCRYPT MATCH →', isMatch);
+        // console.log('BCRYPT MATCH →', isMatch);
         const accessToken = generateAccessToken(user);
         return { accessToken };
     }
