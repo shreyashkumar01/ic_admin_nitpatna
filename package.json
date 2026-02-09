@@ -52,7 +52,8 @@
     "supports-color": "^5.5.0",
     "to-regex-range": "^5.0.1",
     "touch": "^3.1.1",
-    "undefsafe": "^2.0.5"
+    "undefsafe": "^2.0.5",
+    "zod": "^4.3.6"
   },
   "repository": {
     "type": "git",

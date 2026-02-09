@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 
 const generateAccessToken = (user) => {
     return jwt.sign(
-        {id: user.id, email: user.email, role: user.role}, 
+        {id: user.id, email: user.email, role: user.role, tokenVersion: user.tokenVersion}, 
         env.JWT_SECRET, 
         {expiresIn: '10m'}
     );
@@ -63,6 +63,14 @@ class AuthService {
 
     async listUsers() {
         return await userRepo.getAll();
+    }
+
+    async logout(userId) {
+        const user = await userRepo.findById(userId);
+        if (!user) return;
+        user.refreshToken = null;
+        user.tokenVersion += 1;
+        await user.save();
     }
 }
 

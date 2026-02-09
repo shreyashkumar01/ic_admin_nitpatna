@@ -25,6 +25,11 @@ const User = sequelize.define('User', {
     refreshToken: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    tokenVersion: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+        allowNull: false
     }
 });
 

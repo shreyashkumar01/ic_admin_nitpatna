@@ -39,3 +39,12 @@ exports.listUsers = async (req,res,next) => {
     }
 };
 
+exports.logout = async (req, res, next) => {
+    try{
+        await authService.logout(req.user.id);
+        res.clearCookie('refreshToken', env.COOKIE_OPTIONS);
+        res.status(200).json({message: 'Logout successful'});
+    }catch(err){
+        next(err);
+    }
+}
